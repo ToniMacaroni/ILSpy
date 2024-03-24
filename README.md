@@ -2,7 +2,7 @@
 - Reskin the UI
 - Analyzer for Unity serializables
 - Color code source files for MonoBehaviours, ScriptableObjects and Singletons
-- Generate harmony patch classes from a method context menu
+- Generate harmony patch classes from the method context menu
 
 # Original Readme
 
