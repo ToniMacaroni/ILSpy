@@ -10,34 +10,22 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border Width="9"
-                            Height="9"
+                    <Border Width="18"
+                            Height="18"
                             BorderThickness="1"
-                            BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
                             CornerRadius="1"
-                            SnapsToDevicePixels="True">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0"
-                                                 EndPoint="1,1">
-                                <LinearGradientBrush.GradientStops>
-                                    <GradientStop Color="White"
-                                                  Offset=".2" />
-                                    <GradientStop Color="#FFC0B7A6"
-                                                  Offset="1" />
-                                </LinearGradientBrush.GradientStops>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <Path Name="ExpandPath"
-                              Margin="1,1,1,1"
-                              Fill="Black"
-                              Data="M 0 2 L 0 3 L 2 3 L 2 5 L 3 5 L 3 3 L 5 3 L 5 2 L 3 2 L 3 0 L 2 0 L 2 2 Z" />
+                            SnapsToDevicePixels="True" Background="CornflowerBlue">
+	                    <Path Name="ExpandPath"
+	                          Margin="3,3,1,1"
+	                          Fill="Black"
+	                          Data="M 0 4 L 0 6 L 4 6 L 4 10 L 6 10 L 6 6 L 10 6 L 10 4 L 6 4 L 6 0 L 4 0 L 4 4 Z" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked"
                                  Value="True">
                             <Setter Property="Data"
                                     TargetName="ExpandPath"
-                                    Value="M 0 2 L 0 3 L 5 3 L 5 2 Z" />
+                                    Value="M 0 4 L 0 6 L 10 6 L 10 4 Z" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

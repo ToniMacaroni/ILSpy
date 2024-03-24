@@ -109,6 +109,10 @@ namespace ICSharpCode.ILSpy.TreeNodes
 				return FilterResult.Hidden;
 		}
 
+		public override bool IsMethod => true;
+		
+		public override bool IsStatic => MethodDefinition.IsStatic;
+
 		public override bool IsPublicAPI {
 			get {
 				switch (GetMethodDefinition().Accessibility)
@@ -121,6 +125,11 @@ namespace ICSharpCode.ILSpy.TreeNodes
 						return false;
 				}
 			}
+		}
+
+		public override bool IsUnityMember
+		{
+			get => MethodDefinition.Name is "Awake" or "OnEnable" or "OnDisable" or "Start" or "Update" or "LateUpdate" or "FixedUpdate" or "OnGUI" or "OnDrawGizmos" or "OnDrawGizmosSelected" or "OnValidate" or "OnDestroy" or "OnApplicationQuit" or "OnApplicationPause" or "OnApplicationFocus" or "OnTriggerEnter" or "OnTriggerExit" or "OnTriggerStay" or "OnCollisionEnter" or "OnCollisionExit" or "OnCollisionStay" or "OnPostRender" or "OnPreCull" or "OnPreRender" or "OnRenderImage" or "OnRenderObject" or "OnWillRenderObject";
 		}
 
 		IEntity IMemberTreeNode.Member => MethodDefinition;

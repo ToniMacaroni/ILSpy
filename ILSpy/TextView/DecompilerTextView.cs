@@ -491,7 +491,8 @@ namespace ICSharpCode.ILSpy.TextView
 				Border border = new Border {
 					BorderThickness = new Thickness(1),
 					MaxHeight = 400,
-					Child = viewer
+					Child = viewer,
+					CornerRadius = new CornerRadius(8)
 				};
 				border.SetResourceReference(Border.BackgroundProperty, SystemColors.ControlBrushKey);
 				border.SetResourceReference(Border.BorderBrushProperty, SystemColors.ControlDarkBrushKey);

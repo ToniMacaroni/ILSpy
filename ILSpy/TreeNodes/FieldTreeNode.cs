@@ -71,6 +71,8 @@ namespace ICSharpCode.ILSpy.TreeNodes
 
 		public override FilterResult Filter(FilterSettings settings)
 		{
+			if (FieldDefinition.Name.StartsWith("NativeField") || FieldDefinition.Name.StartsWith("NativeMethod"))
+				return FilterResult.Hidden;
 			if (settings.ShowApiLevel == ApiVisibility.PublicOnly && !IsPublicAPI)
 				return FilterResult.Hidden;
 			if (settings.SearchTermMatches(FieldDefinition.Name) && (settings.ShowApiLevel == ApiVisibility.All || settings.Language.ShowMember(FieldDefinition)))
@@ -97,6 +99,8 @@ namespace ICSharpCode.ILSpy.TreeNodes
 				}
 			}
 		}
+
+		public override bool IsStatic => FieldDefinition.IsStatic;
 
 		IEntity IMemberTreeNode.Member => FieldDefinition;
 

@@ -67,6 +67,51 @@ namespace ICSharpCode.ILSpy.TreeNodes
 			}
 		}
 
+		public override bool IsSingleton {
+			get {
+				var typeDef = GetTypeDefinition();
+				foreach (IType ty in typeDef.DirectBaseTypes)
+				{
+					if (ty.Name.Contains("Singleton"))
+					{
+						return true;
+					}
+				}
+				
+				foreach (IField fld in typeDef.Fields)
+				{
+					if (fld.Name is "Instance" or "_instance" or "instance")
+					{
+						return true;
+					}
+				}
+				
+				foreach (IProperty prop in typeDef.Properties)
+				{
+					if (prop.Name is "Instance" or "_instance" or "instance")
+					{
+						return true;
+					}
+				}
+
+				return false;
+			}
+		}
+
+		public override bool IsScriptableObject {
+			get {
+				var typeDef = GetTypeDefinition();
+				return typeDef.GetAllBaseTypes().Any(x => x.Name.Contains("ScriptableObject"));
+			}
+		}
+		
+		public override bool IsMonoBehaviour {
+			get {
+				var typeDef = GetTypeDefinition();
+				return typeDef.GetAllBaseTypes().Any(x => x.Name.Contains("MonoBehaviour"));
+			}
+		}
+
 		public override FilterResult Filter(FilterSettings settings)
 		{
 			if (settings.ShowApiLevel == ApiVisibility.PublicOnly && !IsPublicAPI)
@@ -126,6 +171,8 @@ namespace ICSharpCode.ILSpy.TreeNodes
 		}
 
 		public override bool CanExpandRecursively => true;
+
+		public override bool ActivateOnDoubleClick => true;
 
 		public override void Decompile(Language language, ITextOutput output, DecompilationOptions options)
 		{

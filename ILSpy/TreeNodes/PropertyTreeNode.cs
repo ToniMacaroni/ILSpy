@@ -100,6 +100,10 @@ namespace ICSharpCode.ILSpy.TreeNodes
 			}
 		}
 
+		public override bool IsProperty => true;
+
+		public override bool IsStatic => PropertyDefinition.IsStatic;
+
 		IEntity IMemberTreeNode.Member => PropertyDefinition;
 
 		public override string ToString()

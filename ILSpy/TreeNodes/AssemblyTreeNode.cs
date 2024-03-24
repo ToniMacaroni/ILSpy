@@ -82,7 +82,7 @@ namespace ICSharpCode.ILSpy.TreeNodes
 			}
 		}
 
-		public override object Text => LoadedAssembly.Text;
+		public override object Text => LoadedAssembly.Text.Split(' ')[0];
 
 		public override object Icon {
 			get {

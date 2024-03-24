@@ -17,10 +17,12 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ICSharpCode.Decompiler.TypeSystem;
 using ICSharpCode.ILSpy.TreeNodes;
+using ICSharpCode.TreeView;
 
 namespace ICSharpCode.ILSpy.Analyzers.TreeNodes
 {
@@ -52,5 +54,41 @@ namespace ICSharpCode.ILSpy.Analyzers.TreeNodes
 		}
 
 		public override IEntity Member => analyzedType;
+	}
+	
+	[ExportAnalyzer(Header = "Unity Serializable", Order = 0)]
+	public class UnitySerializableAnalyzer : IAnalyzer
+	{
+		public bool Show(ISymbol symbol)
+		{
+			return symbol is ITypeDefinition;
+		}
+
+		public IEnumerable<ISymbol> Analyze(ISymbol analyzedSymbol, AnalyzerContext context)
+		{
+			return GetUnitySerializables(analyzedSymbol as ITypeDefinition);
+		}
+		
+		private List<IField> GetUnitySerializables(ITypeDefinition analyzedType)
+		{
+			var result = new List<IField>();
+			
+			foreach (IField field in analyzedType.Fields)
+			{
+				if (field.Accessibility == Decompiler.TypeSystem.Accessibility.Public && !field.IsStatic && !field.IsConst)
+				{
+					result.Add(field);
+					continue;
+				}
+
+				if (field.GetAttributes().Any(x=>x.AttributeType.FullName == "UnityEngine.SerializeField"))
+				{
+					result.Add(field);
+					continue;
+				}
+			}
+
+			return result;
+		}
 	}
 }

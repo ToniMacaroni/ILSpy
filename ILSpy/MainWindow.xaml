@@ -40,9 +40,12 @@
 					<Setter Property="Template">
 						<Setter.Value>
 							<ControlTemplate TargetType="{x:Type tv:SharpTreeViewItem}">
-								<Border Background="Transparent">
+								<Border Background="Transparent" Margin="0 7 0 0">
 									<Border Background="{TemplateBinding Background}">
-										<tv:SharpTreeNodeView x:Name="nodeView" HorizontalAlignment="Left" />
+										<tv:SharpTreeNodeView x:Name="nodeView" HorizontalAlignment="Left" FontSize="20" FontFamily="Calibri"/>
+										<!-- <Border Visibility="Collapsed" Background="#101011" Height="24" Width="60" Margin="0 -10 0 0" CornerRadius="5" Padding="3"> -->
+										<!-- 	<TextBlock HorizontalAlignment="Center" Text="MB"/> -->
+										<!-- </Border> -->
 									</Border>
 								</Border>
 								<ControlTemplate.Triggers>
@@ -51,6 +54,36 @@
 									</DataTrigger>
 									<DataTrigger Binding="{Binding IsPublicAPI}" Value="False">
 										<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsMethod}" Value="True">
+										<Setter Property="Foreground" Value="DarkOrange"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsUnityMember}" Value="True">
+										<Setter Property="Foreground" Value="#5AFF7E"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsProperty}" Value="True">
+										<Setter Property="Foreground" Value="SteelBlue"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsNotSpecial}" Value="True">
+										<Setter Property="Foreground" Value="#569cd6"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsStatic}" Value="True">
+										<Setter Property="Foreground" Value="OrangeRed"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsAssembly}" Value="True">
+										<Setter Property="Foreground" Value="DarkGray"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsMonoBehaviour}" Value="True">
+										<Setter Property="Foreground" Value="#75C7B5"/>
+										<!-- <Setter Property="Background" Value="#0f0f0f"></Setter> -->
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsScriptableObject}" Value="True">
+										<Setter Property="Foreground" Value="#B3779F"/>
+										<!-- <Setter Property="Background" Value="#0f0f0f"></Setter> -->
+									</DataTrigger>
+									<DataTrigger Binding="{Binding IsSingleton}" Value="True">
+										<Setter Property="Foreground" Value="#ADB374"/>
+										<!-- <Setter Property="Background" Value="#0f0f0f"></Setter> -->
 									</DataTrigger>
 									<Trigger Property="IsSelected" Value="True">
 										<Setter TargetName="nodeView" Property="TextBackground" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
@@ -83,7 +116,7 @@
 			<ContentControl Content="{StaticResource SearchPane}" />
 		</DataTemplate>
 
-		<analyzers:AnalyzerTreeView x:Key="AnalyzerTreeView" />
+		<analyzers:AnalyzerTreeView x:Key="AnalyzerTreeView" FontSize="19" FontFamily="Calibri" Foreground="DarkGray"/>
 
 		<DataTemplate x:Key="AnalyzerPaneTemplate">
 			<ContentControl Content="{StaticResource AnalyzerTreeView}" />
@@ -124,7 +157,7 @@
 			Executed="SearchCommandExecuted" />
 	</Window.CommandBindings>
 	<Window.InputBindings>
-		<KeyBinding Key="R" Modifiers="Control" Command="{x:Static local:ILSpyCommands.Analyze}" />
+		<KeyBinding Key="X" Command="{x:Static local:ILSpyCommands.Analyze}" />
 	</Window.InputBindings>
 	<Window.TaskbarItemInfo>
 		<TaskbarItemInfo />
@@ -246,7 +279,7 @@
 									AnchorablesSource="{Binding ToolPanes}"
 									DocumentsSource="{Binding TabPages}"
 									ActiveContent="{Binding ActiveTabPage, Mode=TwoWay, Converter={StaticResource ActiveTabPageConverter}}"
-									AllowMixedOrientation="True">
+									AllowMixedOrientation="True" Background="#252526">
 
 			<avalondock:DockingManager.DocumentHeaderTemplate>
 				<DataTemplate>

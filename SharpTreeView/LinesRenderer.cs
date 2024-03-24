@@ -26,7 +26,7 @@ namespace ICSharpCode.TreeView
 	{
 		static LinesRenderer()
 		{
-			pen = new Pen(Brushes.LightGray, 1);
+			pen = new Pen(Brushes.DimGray, 2);
 			pen.Freeze();
 		}
 

@@ -204,6 +204,50 @@ namespace ICSharpCode.ILSpy.TreeNodes
 		public virtual bool IsAutoLoaded {
 			get { return false; }
 		}
+		
+		public virtual bool IsMethod {
+			get { return false; }
+		}
+		
+		public virtual bool IsField {
+			get { return false; }
+		}
+
+		public virtual bool IsProperty {
+			get { return false; }
+		}
+
+		public bool IsNotSpecial {
+			get { return !IsMethod && !IsProperty; }
+		}
+		
+		public virtual bool IsStatic {
+			get { return false; }
+		}
+		
+		public bool ShouldBeHighlighted {
+			get { return IsStatic; }
+		}
+
+		public bool IsAssembly {
+			get => this is AssemblyTreeNode;
+		}
+
+		public virtual bool IsSingleton {
+			get => false;
+		}
+
+		public virtual bool IsScriptableObject {
+			get => false;
+		}
+		
+		public virtual bool IsMonoBehaviour {
+			get => false;
+		}
+
+		public virtual bool IsUnityMember {
+			get => false;
+		}
 
 		IEnumerable<ITreeNode> ITreeNode.Children => this.Children.OfType<ILSpyTreeNode>();
 	}

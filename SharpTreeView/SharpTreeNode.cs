@@ -88,6 +88,8 @@ namespace ICSharpCode.TreeView
 
 		protected virtual void OnIsVisibleChanged() { }
 
+		public virtual bool ActivateOnDoubleClick => false;
+
 		void UpdateChildIsVisible(bool updateFlattener)
 		{
 			if (modelChildren != null && modelChildren.Count > 0)

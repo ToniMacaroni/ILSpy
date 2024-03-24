@@ -84,7 +84,7 @@ namespace ICSharpCode.TreeView
 				startPoint = e.GetPosition(null);
 				CaptureMouse();
 
-				if (e.ClickCount == 2)
+				if (e.ClickCount > (Node.ActivateOnDoubleClick ? 1 : 0))
 				{
 					wasDoubleClick = true;
 				}
